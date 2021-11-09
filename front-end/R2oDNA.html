@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+    <head>
+           <meta charset="utf-8">
+           <title>R2oDNA</title>
+           <link rel="stylesheet" 
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     <style>
+          html{
+	front-size:10px;
+	    }
+          h1{
+	front-size:5rem;
+	text-align:center;
+	letter-spacing:2px;
+	    }
+        .fontsearch{
+            position: relative;
+        }
+        .fontsearch i {
+            position: absolute;
+            left: 15px;
+            top: 19px;
+            color: gray;
+        }
+        #SearchSeq {
+            width: 65%; 
+            font-size:16px;
+            padding: 12px 20px 12px 40px; 
+            margin: 8px 0; 
+            border: 1px solid #ddd;
+            box-sizing: border-box; 
+}
+
+    </style>
+    </head>
+
+    <body>
+        <header>
+            <h1>R2oDNA: Automated Designer for Non-functional Sequences</h1>
+        </header>
+     
+        <form action="http://127.0.0.1:5000/receive/" method="post" id="main" onsubmit=submitFun() enctype="multipart/form-data">
+            <section>
+            	<fieldset>
+	                <legend>Submission Details</legend>
+	                <p><label for="email">
+	                <span>Email:</span>
+	                </label>
+	                <input type="email" name="email"></p>
+	                <p><label for="projectname">
+	                <span>Project name(optional):<span>
+	                <input type="text" name="projectname"></p>
+                    </fieldset>
+            </section>
+
+            <section>
+			    <fieldset>
+	  			    <legend>Sequence Specifications</legend>
+	   			    <p><label for="seqformat">
+	   			    <span>Enter sequence format:</span>
+	   			    </label>
+	   			    <textarea id="seqformat" name="seqformat" cols="50" rows="5">NNNNNNNNNNNNNNNNNNNNN</textarea></p>
+	   			    <p><label for="quantity">
+	   			    <span>Number of linkers required:</span>
+	   			    </label>
+	   			    <input type="number" id="quantity" name="quantity" value="10"></p>
+                    Melting temperature and GC-content:
+                    <div id='tempgc'>
+                        <input type="button" value='Add' onclick='createInput()'>
+                    </div>
+                </fieldset>   
+	   		</section>
+            
+            <section>
+                <fieldset>
+                    <legend>Homology</legend>
+                    <p><label for="homology length">
+                        <span>Maximum repeating length:</span>
+                        </label>
+                       <input type="text" id="homology length" name="homology" value="10"></p>
+                    <p><label for="background">
+                        <span>Background genome(txt,csv and fasta file only):</span>
+                        </label>
+                        <input type="file" id="background" name="background" accept=".fa,.fna,.fasta,.ffn,.txt,.csv">
+                        <p><label for="Forbid">
+                            <span>Forbidden Sequences to Eliminate:</span>
+                            </label>
+                        <div class="fontsearch">
+                            <input type="text" id="fontsearch" onkeyup="myFunction()" placeholder="Search for sequences.." title="Type in a sequence">
+                            <i class="fa fa-search"></i>
+                        </div>
+                        <div id="table" style="width:800px; height:200px; overflow:auto;">
+                        <table id="ForbidSeq">
+                            <!-- here goes the forbidden sequences -->
+                        </table>
+                        </div><br>
+                        <div id='moreseq'>
+                            <input type="button" value='Add self-defined sequences' onclick='createSeqInput()'>
+                        </div>
+                    </p>
+                </fieldset>
+            </section>
+
+            <section>
+                <fieldset>
+                    <legend>Advanced Settings</legend>
+                    <p><label for="Intraenergy">
+                        <span>Minimum Intra-Molecular Free Energy(kcal/mol):</span>
+                        </label>
+                       <input type="number" id="Intraenergy" name="intraenergy"></p>
+                       <p><label for="Interenergy">
+                        <span>Minimum Inter-Molecular Free Energy(kcal/mol):</span>
+                        </label>
+                       <input type="number" id="interenergy" name="interenergy"></p>
+                       <p><label for="SWscore">
+                        <span>Maximum Smith-Waterman Align Score:</span>
+                        </label>
+                       <input type="number" id="SWscore" name="SWscore"></p>
+                </fieldset>
+            </section>
+
+            <input type="submit" value="submit" name="submit">
+            </form>
+            
+            <script src= generatetable.js></script>
+            <script src= addTempGC.js></script>
+            <script src=addSEQ.js></script>
+            <script src=search.js></script>
+            <script>
+                function submitFun(){
+                      alert("111");
+                }
+                </script>
+           
+
+	
+      </body>
+</html>
+
